@@ -15,6 +15,8 @@ static inline void variance_measure_add(struct variance_measure *meas, const FLT
 	meas->n++;
 	addnd(meas->sum, meas->sum, d, meas->size);
 	for (int i = 0; i < meas->size; i++) {
+		if (!isfinite(d[i]))
+			return;
 		assert(isfinite(d[i]));
 		meas->sumSq[i] += d[i] * d[i];
 	}

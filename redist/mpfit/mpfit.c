@@ -1956,7 +1956,8 @@ L150:
 	jj = 0;
 	for (j = 0; j < n; j++) {
 		wa1[j] = wa1[j] / sdiag[j];
-		assert(isfinite(sdiag[j]));
+		if (!isfinite(sdiag[j]))
+			return;
 		temp = wa1[j];
 		jp1 = j + 1;
 		if (jp1 < n) {
