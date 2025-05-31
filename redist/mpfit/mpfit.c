@@ -1653,7 +1653,8 @@ static void mp_qrsolv(int n, FLT *r, int ldr, int *ipvt, FLT *diag, FLT *qtb, FL
 				for (i = kp1; i < n; i++) {
 					temp = cosx * r[ik] + sinx * sdiag[i];
 					sdiag[i] = -sinx * r[ik] + cosx * sdiag[i];
-					assert(isfinite(sdiag[i]));
+					if (!isfinite(sdiag[i])) 
+						return;
 					r[ik] = temp;
 					assert(isfinite(temp));
 					ik += 1; /* [i+ldr*k] */
@@ -1964,7 +1965,8 @@ L150:
 			ij = jp1 + jj;
 			for (i = jp1; i < n; i++) {
 				wa1[i] -= r[ij] * temp;
-				assert(isfinite(wa1[i]));
+				if (!isfinite(wa1[i]))
+					return;
 				ij += 1; /* [i+ldr*j] */
 			}
 		}
